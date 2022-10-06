@@ -48,6 +48,9 @@ public class IntegerSet {
 	}
 
 	/**
+	 * HashMap implementation is used to track the presence of each element in the
+	 * set to be compared.
+	 * 
 	 * @param b - the IntegerSet to be used for comparison.
 	 * @return True if the 2 sets are equal, false otherwise.
 	 */
@@ -55,22 +58,22 @@ public class IntegerSet {
 
 		Map<Integer, Boolean> elements = new HashMap<>();
 		if (set.size() != b.length())
-			return false;
+			return false; // If the two sets, do not have the same length, it is not possible for them to
+							// be equal; return False.
 
 		else {
 			for (int num : set)
-				elements.put(num, false);
+				elements.put(num, false); // Put each element in the original set in the hash-map, and set it to false.
+											// False = not found in the comparing set.
 
 			for (int i = 0; i < b.length(); i++) {
 				if (!elements.containsKey(b.get(i))) {
-					return false;
+					return false; // If the element is not found in the original set, return false; sets are not
+									// equal.
 				} else {
-					elements.replace(b.get(i), true);
+					elements.replace(b.get(i), true); // The element is in the set; Mark it as found by setting its
+														// value as True.
 				}
-			}
-			for (boolean val : elements.values()) {
-				if (!val)
-					return false;
 			}
 			return true;
 		}
@@ -85,7 +88,7 @@ public class IntegerSet {
 		if (set.isEmpty()) {
 			throw new IntegerSetException("Set is empty.");
 		}
-		Collections.sort(set, Collections.reverseOrder());
+		Collections.sort(set, Collections.reverseOrder()); // Sort elements in descending order
 		return set.get(0);
 	}
 
@@ -97,7 +100,7 @@ public class IntegerSet {
 		if (set.isEmpty()) {
 			throw new IntegerSetException("Set is empty.");
 		}
-		Collections.sort(set);
+		Collections.sort(set); // Sort elements in descending order
 		return set.get(0);
 	}
 
@@ -149,7 +152,7 @@ public class IntegerSet {
 		List<Integer> result = set;
 		for (int i = 0; i < intSetb.length(); i++) {
 			if (result.contains(intSetb.get(i)))
-				continue;
+				continue; // If the element is already in the original set, no need to add it again.
 			else
 				result.add(intSetb.get(i));
 		}
@@ -165,7 +168,7 @@ public class IntegerSet {
 	public void intersect(IntegerSet intSetb) {
 		List<Integer> result = new ArrayList<>();
 		for (int i = 0; i < intSetb.length(); i++) {
-			if (set.contains(intSetb.get(i)))
+			if (set.contains(intSetb.get(i))) // If the element is in both sets, add to the resulting intersection set.
 				result.add(intSetb.get(i));
 		}
 		Collections.sort(result);
@@ -180,7 +183,8 @@ public class IntegerSet {
 	public void diff(IntegerSet intSetb) {
 		List<Integer> result = new ArrayList<>();
 		for (int i = 0; i < set.size(); i++) {
-			if (!intSetb.contains(set.get(i)))
+			if (!intSetb.contains(set.get(i))) // If the element is in the original set but not the comparison set, add
+												// it to the resulting difference set.
 				result.add(set.get(i));
 		}
 		Collections.sort(result);
