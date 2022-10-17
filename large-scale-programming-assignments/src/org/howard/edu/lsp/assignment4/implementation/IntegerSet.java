@@ -129,10 +129,7 @@ public class IntegerSet {
 	 * @param item - The item to be removed from the set.
 	 */
 	public void remove(int item) {
-		if (!set.contains(item))
-			return;
-		else
-			set.remove(item);
+		set.remove(Integer.valueOf(item));
 	}
 
 	/**
